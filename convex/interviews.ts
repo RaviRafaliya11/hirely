@@ -1,21 +1,21 @@
-import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { v } from "convex/values";
 
-// get all interviews
 export const getAllInterviews = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("User is not authenticated.");
+    if (!identity) throw new Error("Unauthorized");
 
     const interviews = await ctx.db.query("interviews").collect();
+
     return interviews;
   },
 });
 
 export const getMyInterviews = query({
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("User is not authenticated.");
+    if (!identity) return [];
 
     const interviews = await ctx.db
       .query("interviews")
@@ -23,6 +23,7 @@ export const getMyInterviews = query({
         q.eq("candidateId", identity.subject)
       )
       .collect();
+
     return interviews!;
   },
 });
@@ -30,17 +31,15 @@ export const getMyInterviews = query({
 export const getInterviewByStreamCallId = query({
   args: { streamCallId: v.string() },
   handler: async (ctx, args) => {
-    const user = await ctx.db
+    return await ctx.db
       .query("interviews")
       .withIndex("by_stream_call_id", (q) =>
         q.eq("streamCallId", args.streamCallId)
       )
       .first();
-    return user;
   },
 });
 
-// create interview
 export const createInterview = mutation({
   args: {
     title: v.string(),
@@ -53,15 +52,13 @@ export const createInterview = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("User is not authenticated.");
+    if (!identity) throw new Error("Unauthorized");
 
     return await ctx.db.insert("interviews", {
       ...args,
     });
   },
 });
-
-// update inteview status
 
 export const updateInterviewStatus = mutation({
   args: {

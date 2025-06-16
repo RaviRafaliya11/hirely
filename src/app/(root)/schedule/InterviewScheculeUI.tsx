@@ -35,7 +35,7 @@ function InterviewScheculeUI() {
 
   const interviews = useQuery(api.interviews.getAllInterviews) ?? [];
 
-  const users = useQuery(api.users.getUser) ?? [];
+  const users = useQuery(api.users.getUsers) ?? [];
 
   const createInterview = useMutation(api.interviews.createInterview);
 
