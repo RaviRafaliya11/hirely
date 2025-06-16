@@ -25,6 +25,7 @@ import { TIME_SLOTS } from "@/app/constants";
 import UserInfo from "@/components/UserInfo";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
+import MeetingCard from "@/components/MeetingCard";
 
 function InterviewScheculeUI() {
   const { user } = useUser();
@@ -32,7 +33,8 @@ function InterviewScheculeUI() {
   const [open, setOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
-  const interviewes = useQuery(api.interviews.getAllInterviews) ?? [];
+  const interviews = useQuery(api.interviews.getAllInterviews) ?? [];
+
   const users = useQuery(api.users.getUser) ?? [];
 
   const createInterview = useMutation(api.interviews.createInterview);
@@ -297,6 +299,24 @@ function InterviewScheculeUI() {
           </DialogContent>
         </Dialog>
       </div>
+
+      {!interviews ? (
+        <div className="flex justify-center py-12">
+          <Loader2Icon className="size-8 animate-spin text-muted-foreground" />
+        </div>
+      ) : interviews.length > 0 ? (
+        <div className="spacey-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {interviews.map((interview) => (
+              <MeetingCard key={interview._id} interview={interview} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="text-center py-12 text-muted-foreground">
+          No interviews scheduled
+        </div>
+      )}
     </div>
   );
 }
