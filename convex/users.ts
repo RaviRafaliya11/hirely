@@ -5,8 +5,8 @@ export const syncUser = mutation({
   args: {
     name: v.string(),
     email: v.string(),
-    image: v.optional(v.string()),
     clerkId: v.string(),
+    image: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const existingUser = await ctx.db
@@ -16,19 +16,20 @@ export const syncUser = mutation({
 
     if (existingUser) return;
 
-    await ctx.db.insert("users", {
+    return await ctx.db.insert("users", {
       ...args,
       role: "candidate",
     });
   },
 });
 
-export const getUser = query({
+export const getUsers = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("User is not authenticated.");
+    if (!identity) throw new Error("User is not authenticated");
 
     const users = await ctx.db.query("users").collect();
+
     return users;
   },
 });
@@ -40,6 +41,7 @@ export const getUserByClerkId = query({
       .query("users")
       .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
       .first();
+
     return user;
   },
 });
