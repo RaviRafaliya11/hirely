@@ -29,7 +29,7 @@ To run Hirely locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/hirely.git](https://github.com/your-username/hirely.git)
+    git clone [https://github.com/RaviRafaliya11/hirely.git](https://github.com/RaviRafaliya11/hirely.git)
     cd hirely
     ```
 2.  **Install dependencies:**
@@ -47,3 +47,5 @@ To run Hirely locally, follow these steps:
     yarn dev
     ```
     The application will be accessible at `http://localhost:3000`.
+
+---
