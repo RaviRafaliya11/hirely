@@ -1,17 +1,28 @@
-🎯 Hirely — Video Interviewing Platform
-Tech Stack: Next.js, TypeScript, Stream, Convex, Clerk, TailwindCSS, Shadcn
-Key Features:
+📁 Hirely — Video Calling Interview Platform
+A modern video interviewing platform that simplifies the remote hiring process.
 
-🎥 Real-time video calls with Stream
+🔧 Tech Stack
+Frontend: Next.js, TypeScript, Tailwind CSS, Shadcn UI
 
-🖥️ Screen sharing and 🎬 screen recording
+Backend: Convex
 
-🔒 Authentication & authorization with Clerk
+Authentication: Clerk
 
-⚙️ Uses React Server Components, Server Actions & Layouts
+Media: Stream for real-time video, audio, screen sharing, and recording
 
-🌐 Dynamic & static routing with file-based routing
+✨ Key Features
+🎥 High-quality video calls with Stream integration
 
-💅 UI designed with Tailwind CSS and Shadcn components
+🖥️ Screen sharing support
 
-A full-featured interview platform built to simplify remote hiring.
+🎬 Screen recording functionality
+
+🔒 Secure authentication and role-based authorization
+
+⚙️ Server Components, Server Actions, and Layout architecture
+
+📁 Dynamic & static routing
+
+🎨 Clean UI with Tailwind CSS & Shadcn
+
+🧩 Modular structure using both client and server components
